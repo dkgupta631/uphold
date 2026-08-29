@@ -17,10 +17,14 @@ const NAV_LINKS = [
   { label: "Enterprise", href: "/enterprise" },
 ];
 
+function normalizePath(path: string) {
+  return path.length > 1 ? path.replace(/\/$/, "") : path;
+}
+
 function Logo() {
   return (
     <Link href="/" className="flex items-center gap-2 shrink-0">
-      <Image src="/assets/images/logo.png" alt="CryptoTrade" width={100} height={50} priority />
+      <Image src="/assets/images/logo.svg" alt="CryptoTrade" width={100} height={50} priority />
       {/* <span className="text-[20px] font-semibold tracking-tight text-base-white">
         CryptoTrade
       </span> */}
@@ -52,28 +56,28 @@ export default function Navbar() {
   }, [open]);
 
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-50 w-full transition-all duration-300 ease-out",
-        scrolled || open
-          ? "bg-neutral-900/95 backdrop-blur border-b border-neutral-700 shadow-[0_4px_24px_rgba(0,0,0,0.3)]"
-          : "bg-neutral-900/40 backdrop-blur-sm border-b border-transparent"
-      )}
-    >
-      <nav className="container-page flex h-[72px] items-center justify-between">
+    <header className="sticky top-0 z-50 w-full px-4 sm:px-6 lg:px-8 pt-5 sm:pt-6">
+      <nav
+        className={cn(
+          "mx-auto max-w-[1280px] flex h-[72px] items-center justify-between rounded-full px-5 sm:px-8 bg-neutral-600 transition-shadow duration-300 ease-out",
+          scrolled || open
+            ? "shadow-[0_12px_36px_rgba(0,0,0,0.45)]"
+            : "shadow-[0_8px_30px_rgba(0,0,0,0.3)]"
+        )}
+      >
         <div className="flex items-center gap-10">
           <Logo />
           <ul className="hidden lg:flex items-center gap-8">
             {NAV_LINKS.map((link) => {
-              const active = pathname === link.href;
+              const active = normalizePath(pathname) === normalizePath(link.href);
               return (
                 <li key={link.href}>
                   <Link
                     href={link.href}
                     className={cn(
-                      "text-body1 font-medium transition-colors",
+                      "text-body1 font-bold transition-colors",
                       active
-                        ? "text-primary-dark"
+                        ? "text-primary-light"
                         : "text-base-white/85 hover:text-base-white"
                     )}
                   >
@@ -94,13 +98,20 @@ export default function Navbar() {
           </Button>
         </div>
 
-        <button
-          aria-label="Toggle menu"
-          onClick={() => setOpen((v) => !v)}
-          className="lg:hidden text-base-white p-2 -mr-2"
-        >
-          {open ? <X size={26} /> : <Menu size={26} />}
-        </button>
+        <div className="flex lg:hidden items-center gap-3">
+          {!open && (
+            <Button href="/get-started" variant="primary" size="md" showArrow icon="external">
+              Get started
+            </Button>
+          )}
+          <button
+            aria-label="Toggle menu"
+            onClick={() => setOpen((v) => !v)}
+            className="text-primary-light p-1 -mr-1"
+          >
+            {open ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </nav>
 
       <AnimatePresence>
@@ -110,28 +121,29 @@ export default function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            className="lg:hidden overflow-hidden bg-neutral-900 border-b border-neutral-700"
+            className="lg:hidden overflow-hidden"
           >
-            <div className="container-page py-6 flex flex-col gap-1">
-              {NAV_LINKS.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="py-3 text-h4 font-medium text-base-white/90 border-b border-neutral-800 last:border-b-0"
-                >
-                  {link.label}
-                </Link>
-              ))}
+            <div className="mx-auto max-w-[1280px] mt-3 rounded-3xl bg-neutral-600 px-5 py-6 flex flex-col gap-1">
+              {NAV_LINKS.map((link) => {
+                const active = normalizePath(pathname) === normalizePath(link.href);
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={cn(
+                      "py-3 text-h4 font-bold border-b border-white/10 last:border-b-0",
+                      active ? "text-primary-light" : "text-base-white/90"
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
               <div className="flex flex-col gap-3 mt-6">
-                <Button href="/login" variant="outline" className="w-full">
+                <Button href="/login" variant="dark" className="w-full">
                   Login
                 </Button>
-                <Button
-                  href="/get-started"
-                  variant="primary"
-                  showArrow
-                  className="w-full"
-                >
+                <Button href="/get-started" variant="primary" showArrow className="w-full">
                   Get started
                 </Button>
               </div>
