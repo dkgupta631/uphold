@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
@@ -19,16 +20,10 @@ const NAV_LINKS = [
 function Logo() {
   return (
     <Link href="/" className="flex items-center gap-2 shrink-0">
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-        <circle cx="14" cy="14" r="12.5" stroke="#84FB7F" strokeWidth="2" />
-        <path
-          d="M14 6C14 6 9 11.5 9 16C9 18.76 11.24 21 14 21C16.76 21 19 18.76 19 16C19 11.5 14 6 14 6Z"
-          fill="#84FB7F"
-        />
-      </svg>
-      <span className="text-[20px] font-semibold tracking-tight text-base-white">
+      <Image src="/assets/images/logo.png" alt="CryptoTrade" width={100} height={50} priority />
+      {/* <span className="text-[20px] font-semibold tracking-tight text-base-white">
         CryptoTrade
-      </span>
+      </span> */}
     </Link>
   );
 }

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type ButtonVariant = "primary" | "ghost" | "outline";
@@ -11,6 +11,7 @@ interface ButtonProps {
   size?: "md" | "lg";
   className?: string;
   showArrow?: boolean;
+  icon?: "arrow" | "external";
   onClick?: () => void;
   type?: "button" | "submit";
 }
@@ -31,6 +32,7 @@ export default function Button({
   size = "md",
   className,
   showArrow = false,
+  icon = "arrow",
   onClick,
   type = "button",
 }: ButtonProps) {
@@ -41,10 +43,12 @@ export default function Button({
     className
   );
 
+  const Icon = icon === "external" ? ExternalLink : ArrowRight;
+
   const content = (
     <>
       {children}
-      {showArrow && <ArrowRight size={16} strokeWidth={2.25} />}
+      {showArrow && <Icon size={16} strokeWidth={2.25} />}
     </>
   );
 

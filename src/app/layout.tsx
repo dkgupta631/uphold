@@ -14,6 +14,9 @@ export const metadata: Metadata = {
   title: "CryptoTrade — Buy, sell and earn crypto better",
   description:
     "CryptoTrade is a simple, secure way to buy, sell, send and earn crypto. Trade any asset for any other, directly.",
+  icons: {
+    icon: "/assets/images/favicon.png",
+  },
 };
 
 export const viewport: Viewport = {
