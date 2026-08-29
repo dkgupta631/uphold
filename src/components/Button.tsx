@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-type ButtonVariant = "primary" | "ghost" | "outline";
+type ButtonVariant = "primary" | "ghost" | "outline" | "dark";
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -23,6 +23,8 @@ const variantClasses: Record<ButtonVariant, string> = {
     "bg-transparent text-current hover:bg-white/10 border border-transparent",
   outline:
     "bg-transparent text-current border border-neutral-600 hover:border-neutral-400",
+  dark:
+    "bg-[#021d04] text-primary-light border border-primary-light/25 hover:border-primary-light/50",
 };
 
 export default function Button({

@@ -146,7 +146,7 @@ export default function ScrollHero() {
             ))}
           </div>
 
-          <div className="mt-10 flex flex-col sm:flex-row items-center gap-4">
+          <div className="mt-4 flex flex-col sm:flex-row items-center gap-4">
             <Button href="/get-started" size="lg" showArrow>
               Get started
             </Button>
