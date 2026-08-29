@@ -46,25 +46,38 @@ function segmentRange(index: number) {
   };
 }
 
-function keyframes(
+function interpolate(points: number[], values: number[]) {
+  return (p: number) => {
+    const last = points.length - 1;
+    if (p <= points[0]) return values[0];
+    if (p >= points[last]) return values[last];
+    for (let i = 0; i < last; i++) {
+      if (p <= points[i + 1]) {
+        const span = points[i + 1] - points[i];
+        const t = span === 0 ? 1 : (p - points[i]) / span;
+        return values[i] + (values[i + 1] - values[i]) * t;
+      }
+    }
+    return values[last];
+  };
+}
+
+function keyframeFn(
   index: number,
   range: ReturnType<typeof segmentRange>,
   values: [number, number, number, number]
-): [number[], number[]] {
+) {
   const { fadeInStart, segStart, fadeOutStart, segEnd } = range;
   const isFirst = index === 0;
   const [fadeInValue, restValue, fadeOutValue, endValue] = values;
 
   if (isFirst) {
-    return [
-      [segStart, fadeOutStart, segEnd],
-      [restValue, fadeOutValue, endValue],
-    ];
+    return interpolate([segStart, fadeOutStart, segEnd], [restValue, fadeOutValue, endValue]);
   }
-  return [
+  return interpolate(
     [fadeInStart, segStart, fadeOutStart, segEnd],
-    [fadeInValue, restValue, fadeOutValue, endValue],
-  ];
+    [fadeInValue, restValue, fadeOutValue, endValue]
+  );
 }
 
 export default function ScrollHero() {
@@ -156,10 +169,8 @@ function Word({
   const range = segmentRange(index);
   const isLast = index === N - 1;
 
-  const [opacityInput, opacityOutput] = keyframes(index, range, [0, 1, 1, isLast ? 1 : 0]);
-  const [yInput, yOutput] = keyframes(index, range, [20, 0, 0, isLast ? 0 : -20]);
-  const opacity = useTransform(scrollYProgress, opacityInput, opacityOutput);
-  const y = useTransform(scrollYProgress, yInput, yOutput);
+  const opacity = useTransform(scrollYProgress, keyframeFn(index, range, [0, 1, 1, isLast ? 1 : 0]));
+  const y = useTransform(scrollYProgress, keyframeFn(index, range, [20, 0, 0, isLast ? 0 : -20]));
 
   return (
     <motion.span
@@ -184,15 +195,11 @@ function Card({
   const isFirst = index === 0;
   const isLast = index === N - 1;
 
-  const [rotateInput, rotateOutput] = keyframes(index, range, [
-    isFirst ? 0 : 90,
-    0,
-    0,
-    isLast ? 0 : -90,
-  ]);
-  const [opacityInput, opacityOutput] = keyframes(index, range, [0, 1, 1, isLast ? 1 : 0]);
-  const rotateX = useTransform(scrollYProgress, rotateInput, rotateOutput);
-  const opacity = useTransform(scrollYProgress, opacityInput, opacityOutput);
+  const rotateX = useTransform(
+    scrollYProgress,
+    keyframeFn(index, range, [isFirst ? 0 : 90, 0, 0, isLast ? 0 : -90])
+  );
+  const opacity = useTransform(scrollYProgress, keyframeFn(index, range, [0, 1, 1, isLast ? 1 : 0]));
 
   return (
     <motion.div
