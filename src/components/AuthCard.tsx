@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import Button from "./Button";
 
 interface AuthCardProps {
@@ -12,13 +13,7 @@ export default function AuthCard({ mode }: AuthCardProps) {
     <div className="min-h-[calc(100vh-72px)] flex items-center justify-center bg-neutral-900 py-16 px-5">
       <div className="w-full max-w-[420px]">
         <div className="flex flex-col items-center mb-8">
-          <svg width="40" height="40" viewBox="0 0 28 28" fill="none" aria-hidden="true" className="mb-4">
-            <circle cx="14" cy="14" r="12.5" stroke="#84FB7F" strokeWidth="2" />
-            <path
-              d="M14 6C14 6 9 11.5 9 16C9 18.76 11.24 21 14 21C16.76 21 19 18.76 19 16C19 11.5 14 6 14 6Z"
-              fill="#84FB7F"
-            />
-          </svg>
+          <Image src="/assets/images/logo.png" alt="CryptoTrade" width={48} height={48} className="mb-4" />
           <h1 className="text-h3 font-semibold text-base-white">
             {isLogin ? "Welcome back" : "Create your account"}
           </h1>

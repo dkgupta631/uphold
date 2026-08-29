@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -138,13 +139,7 @@ export default function Footer() {
 
         <div className="mt-14 pt-8 border-t border-neutral-800 flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3">
-            <svg width="24" height="24" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-              <circle cx="14" cy="14" r="12.5" stroke="#84FB7F" strokeWidth="2" />
-              <path
-                d="M14 6C14 6 9 11.5 9 16C9 18.76 11.24 21 14 21C16.76 21 19 18.76 19 16C19 11.5 14 6 14 6Z"
-                fill="#84FB7F"
-              />
-            </svg>
+            <Image src="/assets/images/logo.png" alt="CryptoTrade" width={28} height={28} />
             <span className="text-body1 font-semibold text-base-white">CryptoTrade</span>
           </div>
 

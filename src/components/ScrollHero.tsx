@@ -9,22 +9,29 @@ const SLIDES = [
   {
     word: "Discover",
     stat: "300+",
-    description: "Discover one of the widest ranges of cryptocurrencies",
-  },
-  {
-    word: "Earn",
-    stat: "4.25%",
-    description: "Earn up to 4.25% APY on your idle crypto holdings",
+    description: "Discover one of the widest ranges of ",
+    highlight: "cryptocurrencies",
   },
   {
     word: "Trade",
-    stat: "1-step",
-    description: "Trade any asset directly for any other in a single step",
+    stat: "New token early",
+    description: "Trade important new tokens",
+    highlight: "before they're listed",
+    descriptionEnd: " on other platforms",
+  },
+  {
+    word: "Earn",
+    stat: "Staking Rewards",
+    description: "Earn ",
+    highlight: "staking rewards",
+    descriptionEnd: " on more than 20 cryptocurrencies",
   },
   {
     word: "Secure",
-    stat: "30s",
-    description: "Reserves published and refreshed every 30 seconds",
+    stat: "Transparency",
+    description: "Secure your crypto on our ",
+    highlight: "fully reserved and radically transparent",
+    descriptionEnd: " platform",
   },
 ];
 
@@ -104,11 +111,6 @@ export default function ScrollHero() {
           }}
         />
         <div className="container-page relative flex flex-col items-center text-center">
-          <span className="inline-flex items-center gap-2 rounded-pill border border-neutral-700 bg-neutral-800 px-4 py-1.5 text-body2 text-neutral-400 mb-6">
-            <Sparkles size={13} className="text-primary-dark" />
-            Trusted since 2014
-          </span>
-
           <h1 className="text-hero-mobile sm:text-hero font-semibold text-base-white text-balance text-center">
             <span className="relative block h-[40px] sm:h-[56px] overflow-hidden">
               {SLIDES.map((slide, index) => (
@@ -128,16 +130,18 @@ export default function ScrollHero() {
           </div>
 
           <div
-            className="mt-10 w-full max-w-sm relative min-h-[168px]"
+            className="mt-10 w-full max-w-sm relative min-h-[220px]"
             style={{ perspective: 1200 }}
           >
             {SLIDES.map((slide, index) => (
               <Card key={slide.stat} scrollYProgress={scrollYProgress} index={index}>
-                <div className="text-[40px] leading-none font-semibold text-base-white">
+                <div className="text-[38px] leading-none font-semibold text-base-white">
                   {slide.stat}
                 </div>
-                <p className="mt-4 text-body1 text-neutral-300 max-w-[240px]">
+                <p className="mt-4 text-paragraph text-neutral-400 max-w-[240px]">
                   {slide.description}
+                  <span className="text-primary-light">{slide.highlight}</span>
+                  {slide.descriptionEnd}
                 </p>
               </Card>
             ))}
@@ -145,10 +149,7 @@ export default function ScrollHero() {
 
           <div className="mt-10 flex flex-col sm:flex-row items-center gap-4">
             <Button href="/get-started" size="lg" showArrow>
-              Get the app
-            </Button>
-            <Button href="/market" variant="ghost" size="lg">
-              See live prices
+              Get started
             </Button>
           </div>
         </div>
@@ -208,8 +209,12 @@ function Card({
         opacity,
         transformOrigin: "center center",
         transformStyle: "preserve-3d",
+        background:
+          "radial-gradient(100% 90% at 0% 0%, rgba(132,251,127,0.55) 0%, rgba(73,204,104,0.2) 45%, #12161F 75%, #090D14 100%)",
+        boxShadow:
+          "0 32px 40px -8px rgba(0,0,0,0.65), 0 12px 24px -8px rgba(132,251,127,0.14), inset 0 0 0 1px rgba(255,255,255,0.06)",
       }}
-      className="absolute inset-0 rounded-2xl border border-neutral-700 bg-gradient-to-br from-primary-dark/20 via-neutral-800 to-neutral-900 p-7 sm:p-8 text-left"
+      className="absolute inset-0 rounded-2xl overflow-hidden pt-7 sm:pt-8 px-7 sm:px-8 pb-9 sm:pb-10 text-left"
     >
       {children}
     </motion.div>
