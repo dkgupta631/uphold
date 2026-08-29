@@ -2,7 +2,6 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Sparkles } from "lucide-react";
 import Button from "@/components/Button";
 
 const SLIDES = [
