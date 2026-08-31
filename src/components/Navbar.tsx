@@ -24,7 +24,7 @@ function normalizePath(path: string) {
 function Logo() {
   return (
     <Link href="/" className="flex items-center gap-2 shrink-0">
-      <Image src="/assets/images/logo.svg" alt="CryptoTrade" width={100} height={50} priority />
+      <Image src="/assets/images/logo.png" alt="CryptoTrade" width={100} height={50} priority />
       {/* <span className="text-[20px] font-semibold tracking-tight text-base-white">
         CryptoTrade
       </span> */}
