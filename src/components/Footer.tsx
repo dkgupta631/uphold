@@ -161,7 +161,7 @@ export default function Footer() {
 
         <div className="mt-14 pt-8 border-t border-neutral-800 flex flex-col gap-8 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3">
-            <Image src="/assets/images/logo.png" alt="CryptoTrade" width={100} height={40} />
+            <Image src="/assets/images/logo.svg" alt="CryptoTrade" width={100} height={40} />
             {/* <span className="text-body1 font-semibold text-base-white">CryptoTrade</span> */}
           </div>
 
@@ -215,12 +215,12 @@ export default function Footer() {
 
         <div className="mt-8 pt-8 border-t border-neutral-800 text-body2 text-[#8897bf] space-y-3">
           <p>
-            CryptoTrade Worldwide Ltd., Reg No.: 177867, Registered Office: Aristo House, Office A, The Balmoral, #78 Sanford Drive, Nassau, Bahamas.
+            Uphold Worldwide Ltd., Reg No.: 177867, Registered Office: Aristo House, Office A, The Balmoral, #78 Sanford Drive, Nassau, Bahamas.
           </p>
           <p>
-            CryptoTrade is certified for SOC 2 Type 2, ISO 27001, and PCI DSS, ensuring rigorous control over our information security management systems, data handling, and payment processing practices. Furthermore, we comply with the General Data Protection Regulation (GDPR), California Consumer Privacy Act (CCPA), and the UK Data Protection Act, underscoring our dedication to protecting the personal data and privacy rights of our global customers.
+            Uphold is certified for SOC 2 Type 2, ISO 27001, and PCI DSS, ensuring rigorous control over our information security management systems, data handling, and payment processing practices. Furthermore, we comply with the General Data Protection Regulation (GDPR), California Consumer Privacy Act (CCPA), and the UK Data Protection Act, underscoring our dedication to protecting the personal data and privacy rights of our global customers.
           </p>
-          <p>© {new Date().getFullYear()} CryptoTrade Worldwide Ltd. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Uphold Worldwide Ltd. All rights reserved.</p>
         </div>
       </div>
     </footer>
