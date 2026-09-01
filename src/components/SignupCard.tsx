@@ -269,18 +269,28 @@ function OtpModal({
   );
 }
 
-function SuccessScreen({ message }: { message: string }) {
+export function SuccessScreen({
+  title = "Registration Success!",
+  message,
+  linkHref = "/login",
+  linkText = "Back to log in",
+}: {
+  title?: string;
+  message: string;
+  linkHref?: string;
+  linkText?: string;
+}) {
   return (
     <div className="flex flex-col items-center py-8 text-center">
       <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-primary-dark/15">
         <CheckCircle2 size={32} className="text-primary-dark" />
       </div>
       <h3 className="text-h4 font-semibold text-base-white">
-        <b>Registration Success!</b>
+        <b>{title}</b>
       </h3>
       <p className="mt-2 text-body1 text-neutral-400">{message}</p>
-      <Link href="/login" className="mt-6 text-body1 font-medium text-primary-dark">
-        Back to log in
+      <Link href={linkHref} className="mt-6 text-body1 font-medium text-primary-dark">
+        {linkText}
       </Link>
     </div>
   );

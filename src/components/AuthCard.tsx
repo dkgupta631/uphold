@@ -2,18 +2,45 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import Button from "./Button";
-import SignupCard from "./SignupCard";
+import SignupCard, { SuccessScreen } from "./SignupCard";
 
 interface AuthCardProps {
   mode: "login" | "signup";
 }
 
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export default function AuthCard({ mode }: AuthCardProps) {
   const isLogin = mode === "login";
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [showSuccess, setShowSuccess] = useState(false);
+
+  const handleLoginSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!email.trim()) {
+      setEmailError("Please enter your email address.");
+      return;
+    }
+    if (!EMAIL_PATTERN.test(email.trim())) {
+      setEmailError("Please enter a valid email address.");
+      return;
+    }
+
+    setEmailError("");
+    setShowSuccess(true);
+
+    setTimeout(() => {
+      router.push("/");
+    }, 1500);
+  };
 
   return (
     <div className="relative min-h-screen w-full bg-neutral-900 flex flex-col">
@@ -55,46 +82,66 @@ export default function AuthCard({ mode }: AuthCardProps) {
                   </p>
                 </div>
 
-                <form className="space-y-5">
-                  <div>
-                    <label htmlFor="email" className="block text-body2 font-semibold text-base-white mb-1.5">
-                      <b>Email address</b>
-                    </label>
-                    <input
-                      id="email"
-                      type="email"
-                      className="w-full rounded-xl border-2 border-neutral-600 bg-transparent px-4 py-4 text-body1 text-base-white outline-none focus:border-primary-dark transition-colors"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="password" className="block text-body2 font-semibold text-base-white mb-1.5">
-                      <b>Password</b>
-                    </label>
-                    <div className="relative">
+                {showSuccess ? (
+                  <SuccessScreen
+                    title="Login Successfully!"
+                    message="You're logged in. Redirecting you to your dashboard..."
+                    linkHref="/"
+                    linkText="Continue to homepage"
+                  />
+                ) : (
+                  <form className="space-y-5" onSubmit={handleLoginSubmit} noValidate>
+                    <div>
+                      <label htmlFor="email" className="block text-body2 font-semibold text-base-white mb-1.5">
+                        <b>Email address</b>
+                      </label>
                       <input
-                        id="password"
-                        type={showPassword ? "text" : "password"}
-                        className="w-full rounded-xl border-2 border-neutral-600 bg-transparent px-4 py-4 pr-12 text-body1 text-base-white outline-none focus:border-primary-dark transition-colors"
+                        id="email"
+                        type="email"
+                        value={email}
+                        onChange={(e) => {
+                          setEmail(e.target.value);
+                          if (emailError) setEmailError("");
+                        }}
+                        aria-invalid={!!emailError}
+                        className={`w-full rounded-xl border-2 bg-transparent px-4 py-4 text-body1 text-base-white outline-none focus:border-primary-dark transition-colors ${
+                          emailError ? "border-red-500" : "border-neutral-600"
+                        }`}
                       />
-                      <button
-                        type="button"
-                        aria-label={showPassword ? "Hide password" : "Show password"}
-                        onClick={() => setShowPassword((v) => !v)}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 text-base-white/80 hover:text-base-white"
-                      >
-                        {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                      </button>
+                      {emailError && (
+                        <p className="mt-1.5 text-body2 text-red-500">{emailError}</p>
+                      )}
                     </div>
-                  </div>
+                    <div>
+                      <label htmlFor="password" className="block text-body2 font-semibold text-base-white mb-1.5">
+                        <b>Password</b>
+                      </label>
+                      <div className="relative">
+                        <input
+                          id="password"
+                          type={showPassword ? "text" : "password"}
+                          className="w-full rounded-xl border-2 border-neutral-600 bg-transparent px-4 py-4 pr-12 text-body1 text-base-white outline-none focus:border-primary-dark transition-colors"
+                        />
+                        <button
+                          type="button"
+                          aria-label={showPassword ? "Hide password" : "Show password"}
+                          onClick={() => setShowPassword((v) => !v)}
+                          className="absolute right-4 top-1/2 -translate-y-1/2 text-base-white/80 hover:text-base-white"
+                        >
+                          {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                        </button>
+                      </div>
+                    </div>
 
-                  <Link href="#" className="inline-block text-body1 text-primary-dark font-medium">
-                    <b>Forgot password?</b>
-                  </Link>
+                    <Link href="#" className="inline-block text-body1 text-primary-dark font-medium">
+                      <b>Forgot password?</b>
+                    </Link>
 
-                  <Button type="submit" className="w-full" size="lg">
-                    Next
-                  </Button>
-                </form>
+                    <Button type="submit" className="w-full" size="lg">
+                      Log in
+                    </Button>
+                  </form>
+                )}
               </div>
             </div>
           </div>
