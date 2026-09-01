@@ -3,6 +3,7 @@ import { Calculator, BookOpen, SlidersHorizontal, Mail, TrendingUp } from "lucid
 import Reveal from "@/components/Reveal";
 import CTASection from "@/components/CTASection";
 import Button from "@/components/Button";
+import LearnHero from "@/components/LearnHero";
 import LearnGrid from "./LearnGrid";
 
 export const metadata: Metadata = {
@@ -36,19 +37,7 @@ const MODULES = [
 export default function LearnPage() {
   return (
     <>
-      <section className="bg-neutral-900 border-b border-neutral-800">
-        <div className="container-page pt-14 pb-12 sm:pt-20 sm:pb-16 text-center">
-          <Reveal>
-            <h1 className="text-h1-mobile sm:text-h1 font-semibold text-base-white text-balance">
-              Learn
-            </h1>
-            <p className="mt-4 text-paragraph text-neutral-400 max-w-lg mx-auto">
-              Guides, glossary and tools to help you understand crypto — from
-              first purchase to advanced trading.
-            </p>
-          </Reveal>
-        </div>
-      </section>
+      <LearnHero />
 
       <section className="bg-neutral-900 border-b border-neutral-800">
         <div className="container-page py-12 sm:py-16">
